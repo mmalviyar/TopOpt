@@ -25,12 +25,13 @@ class ETL:
     # This method uses Google Drive and zipped file. Please change the links as per your convenience
 
     self.img_path = "data/"
-    self.csv_path =  "/content/drive/My Drive/Colab Notebooks/TopOPT/data/"
+    self.csv_path =  "/content/drive/My Drive/Side Project/Topology/data/"
     self.gsize = (7,7)
     self.factor = 4
-    self.no_of_data_points = 17500
+    self.no_of_data_points = 20375
     self.csv_splits = [[1,1500],[1501,2200],[2201,2700],[2700,4500],[4501,5225],[5225,7000],[7001,8000],
-                      [8000,10000],[10000,11725],[11725,12500],[12500,15000],[15000,17500]]
+                      [8000,10000],[10000,11725],[11725,12500],[12500,15000],[15000,17500],[17500,19000],
+                      [19000,20375]]
 
     self.resize = True
     self.blur = False
@@ -38,10 +39,14 @@ class ETL:
 
   def initiate(self,augment = False):
     
-    self.load_dataset()
-    self.clean_data()
+    print('Loading DATA.........\n')
 
+    self.load_dataset()
+    print('cleaning data.....\n')
+    self.clean_data()
+    
     if augment is True:
+      print('augmenting data......\n')
       self.augment_data()
       print('Augmented')
     
@@ -51,17 +56,20 @@ class ETL:
   def load_dataset(self):
     
     # Loading Time and compliance data
+    print('Loading CompTime data.........\n')
     self.load_comp_time() 
+    print('\n')
 
+    print('Loading images.........\n')
     # Loading images as 6 channels
     self.train_images = []
 
     for i in tqdm(range(1,self.no_of_data_points+1)):
       i_mod = "{:01d}".format(i)  
-      # try:   
-      self.train_images.append(self.load_image(i_mod))
-      #except:
-       # print('Not found {}', i) 
+      try:   
+        self.train_images.append(self.load_image(i_mod))
+      except:
+        print('Not found {}', i) 
 
   # Cleaning DataSet---------------------------- 
   def clean_data(self):
@@ -97,7 +105,6 @@ class ETL:
         for s in self.csv_splits:
           a = s[0]
           b = s[1]
-          print(a, b)
           # try:
           if a is 1:
             self.comp_time = self.load_csv(a,b)
@@ -106,8 +113,9 @@ class ETL:
           # except:
           #    print('Not found {} - {}',a,b)
         self.comp_time = np.array(self.comp_time)
-
+        self.comp_time = self.comp_time[0:self.no_of_data_points,:]
         
+       
   def load_csv(self,a,b):
         a = "{:01d}".format(a) 
         b = "{:01d}".format(b) 

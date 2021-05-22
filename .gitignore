@@ -123,3 +123,19 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+data/comp_time_10000_11725_.csv
+data/comp_time_11725_12500_.csv
+data/comp_time_12500_15000_.csv
+data/comp_time_15000_17500_.csv
+data/comp_time_1501_2200_.csv
+data/comp_time_17500_19000_.csv
+data/comp_time_19000_20375_.csv
+data/comp_time_1_1500_.csv
+data/comp_time_2201_2700_.csv
+data/comp_time_2700_4500_.csv
+data/comp_time_4501_5225_.csv
+data/comp_time_5225_7000_.csv
+data/comp_time_7001_8000_.csv
+data/comp_time_8000_10000_.csv
+data/training_data.zip
+data/training_data_2.zip
