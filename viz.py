@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 class Visualization:
 
@@ -12,6 +13,7 @@ class Visualization:
 			self.gen = gen
 			self.disc = disc
 			self.training = False
+			self.noise_dim = 100
 
 	def generate_images(self,images):
 
@@ -22,14 +24,14 @@ class Visualization:
 			else:
 				d = [None,None]
 
-			noise1 = tf.random.normal([number_of_samples, noise_dim], mean = 0.0, stddev = 1,seed = d[0])
-			noise2 = tf.random.normal([number_of_samples, noise_dim], mean = 0.0, stddev = 1, seed = d[1])
+			noise1 = tf.random.normal([number_of_samples, self.noise_dim], mean = 0.0, stddev = 1,seed = d[0])
+			noise2 = tf.random.normal([number_of_samples, self.noise_dim], mean = 0.0, stddev = 1, seed = d[1])
 	
 			SIMPsol = images[:,:,:,0:1]
 			test_input = images[:,:,:,1:6]
 
-			gsol= gen([noise1,test_input],training = False)
-			gsol1 = gen([noise2,test_input],training = False)
+			gsol= self.gen([noise1,test_input],training = False)
+			gsol1 = self.gen([noise2,test_input],training = False)
 	
 
 			idx = 0
