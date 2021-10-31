@@ -32,8 +32,8 @@ from tqdm import tqdm
 
 class test:
 
-  def __init__(self):
-      self.resolution = (32,64)
+  def __init__(self,res = (32,64)):
+      self.resolution = res
       self.nelx = self.resolution[1]-1
       self.nely = self.resolution[0]-1
  
@@ -162,7 +162,7 @@ class test:
       self.nu = 0.3
       self.penal = 3.0
       self.ndof = 2*(self.nelx+1)*(self.nely+1)
-      self.KE=self.Kconstant()
+      self.KE = self.Kconstant()
       
       self.edofMat=np.zeros((self.nelx*self.nely,8),dtype=int)
      

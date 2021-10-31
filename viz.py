@@ -5,7 +5,7 @@ import tensorflow as tf
 
 class Visualization:
 
-	def __init__(self,gen,disc):
+	def __init__(self,gen,disc, test_img, noise_dim = 100):
 
 			self.arrow_length = 7
 			self.gsize = (7,7)
@@ -13,7 +13,8 @@ class Visualization:
 			self.gen = gen
 			self.disc = disc
 			self.training = False
-			self.noise_dim = 100
+			self.noise_dim = noise_dim
+			self.test_img = test_img
 
 	def generate_images(self,images):
 
@@ -124,3 +125,5 @@ class Visualization:
 			else:
 				loc = [None,None]      
 			return fmag,loc
+
+	def save_img(self):
